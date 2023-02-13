@@ -18,6 +18,15 @@ Or add it to your Gemfile:
 
     gem 'lucy_dockerunner'
 
+## Usage
+
+### Add the following code to your Rakefile to load the tasks
+````ruby
+require 'lucy_dockerunner'
+
+LucyDockerunner.load_tasks
+````
+
 ###### Docker actions
 * `rake compose:install` - build docker compose and migrate the database
 * `rake compose:build` - build docker compose services
