@@ -8,6 +8,8 @@ Lucy Dockerunner is a Ruby gem that provides a simple wrapper around the Docker 
 
 Ruby version: >= 2.6.0
 
+This gem version: 0.1.4
+
 ## Installation
 
 You can install the gem by executing:
