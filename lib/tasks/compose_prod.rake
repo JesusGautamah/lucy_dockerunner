@@ -1,19 +1,19 @@
 # frozen_string_literal:true
 
-require 'rake'
-require_relative 'task_helpers/compose_taskhelper'
-
+require "rake"
+require_relative "task_helpers/compose_taskhelper"
 
 def tasks_names
-  @tasks_names = %w[install build up down restart clean_all clean_volumes clean_orphans clean_images clean_networks clean_stopped]
+  @tasks_names = %w[install build up down restart clean_all clean_volumes clean_orphans clean_images clean_networks
+                    clean_stopped]
 end
 
 def namesp
-  @namesp = 'compose_prod'
+  @namesp = "compose_prod"
 end
 
 def compose_file
-  @compose_file ||= 'docker-compose.prod.yml'
+  @compose_file ||= "docker-compose.prod.yml"
 end
 
 def task_helper
@@ -26,207 +26,208 @@ end
 
 def ask(question)
   puts question
-  STDIN.gets.chomp
+  $stdin.gets.chomp
 end
 
 namespace :compose_prod do
   task :check_if_file_exists do
     puts "Checking if docker-compose.prod.yml exists"
     raise ComposeError unless File.exist?(file)
+
     puts "Checking if docker-compose.prod.yml exists... Done!"
   end
 
   task :install do
     puts "Installing Blockchain and Database Containers \nWARNING: This will delete all your data, and you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Installing Blockchain and Database Containers'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Installing Blockchain and Database Containers"
       system "sudo #{compose_command} -f docker-compose.prod.yml build"
-      puts 'Creating Database'
+      puts "Creating Database"
       system "sudo #{compose_command} -f docker-compose.prod.yml run --rm web rails db:create"
-      puts 'Migrating Database'
+      puts "Migrating Database"
       system "sudo #{compose_command} -f docker-compose.prod.yml run --rm web rails db:migrate"
-      puts 'Seeding Database'
+      puts "Seeding Database"
       system "sudo #{compose_command} -f docker-compose.prod.yml run --rm web rails db:seed"
-      puts 'Stopping Containers'
+      puts "Stopping Containers"
       system "sudo #{compose_command} -f docker-compose.prod.yml down"
-      puts 'Installing Blockchain and Database Containers... Done!'
-      puts 'This already setup your database with some initial values'
-      puts 'Start the containers with command: rake compose_prod:up'
-      puts 'Stop the containers with command: rake compose_prod:down'
-      puts 'Restart the containers with command: rake compose_prod:restart'
-      puts 'Clean up the containers with command: rake compose_prod:clean_all'
-      puts 'Build the containers againg with command: rake compose_prod:build'
-      puts 'rake compose_db_prod command documentation at README.md to see database commands usage examples'
-      puts 'See the production log files in Rails default logs folder when using compose_prod:up'
-      puts 'Alternatively, you can use rake compose_prod_logs:all to see all logs'
-      puts 'Read documentation for more compose_db_prod, compose_prod_logs, and compose_prod commands'
-      puts '-----------------------------------------------------------------------------------'
-      puts 'Access the web server on port 80.'
-      puts 'http://localhost'
-      puts 'Look at README.md for more details.'
+      puts "Installing Blockchain and Database Containers... Done!"
+      puts "This already setup your database with some initial values"
+      puts "Start the containers with command: rake compose_prod:up"
+      puts "Stop the containers with command: rake compose_prod:down"
+      puts "Restart the containers with command: rake compose_prod:restart"
+      puts "Clean up the containers with command: rake compose_prod:clean_all"
+      puts "Build the containers againg with command: rake compose_prod:build"
+      puts "rake compose_db_prod command documentation at README.md to see database commands usage examples"
+      puts "See the production log files in Rails default logs folder when using compose_prod:up"
+      puts "Alternatively, you can use rake compose_prod_logs:all to see all logs"
+      puts "Read documentation for more compose_db_prod, compose_prod_logs, and compose_prod commands"
+      puts "-----------------------------------------------------------------------------------"
+      puts "Access the web server on port 80."
+      puts "http://localhost"
+      puts "Look at README.md for more details."
     else
-      puts 'Installation cancelled'
+      puts "Installation cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 
   task :build do
     puts "Building Compose... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Building Compose...'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Building Compose..."
       system "sudo #{compose_command} -f docker-compose.prod.yml build"
-      puts 'Building Compose... Done!'
+      puts "Building Compose... Done!"
     else
-      puts 'Build cancelled'
+      puts "Build cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 
   task :up do
-    puts 'Running Compose... WARNING: you are running this in production'
+    puts "Running Compose... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Running Compose...'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Running Compose..."
       system "sudo #{compose_command} -f docker-compose.prod.yml up -d --remove-orphans"
-      puts 'Running Compose... Done!'
+      puts "Running Compose... Done!"
     else
-      puts 'Running cancelled'
+      puts "Running cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 
   task :down do
-    puts 'Stopping Compose... WARNING: you are running this in production'
+    puts "Stopping Compose... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Stopping Compose...'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Stopping Compose..."
       system "sudo #{compose_command} -f docker-compose.prod.yml down"
-      puts 'Stopping Compose... Done!'
+      puts "Stopping Compose... Done!"
     else
-      puts 'Stopping cancelled'
+      puts "Stopping cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 
   task :restart do
-    puts 'Restarting Compose... WARNING: you are running this in production'
+    puts "Restarting Compose... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Restarting Compose...'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Restarting Compose..."
       system "sudo #{compose_command} -f docker-compose.prod.yml restart"
-      puts 'Restarting Compose... Done!'
+      puts "Restarting Compose... Done!"
     else
-      puts 'Restarting cancelled'
+      puts "Restarting cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 
   task :status do
-    puts 'Status of Compose... WARNING: you are running this in production'
+    puts "Status of Compose... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Status of Compose...'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Status of Compose..."
       system "sudo #{compose_command} -f docker-compose.prod.yml ps"
-      puts 'Status of Compose... Done!'
+      puts "Status of Compose... Done!"
     else
-      puts 'Status cancelled'
+      puts "Status cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 
   task :shell do
-    puts 'Opening shell in Compose... WARNING: you are running this in production'
+    puts "Opening shell in Compose... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Opening shell in Compose...'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Opening shell in Compose..."
       system "sudo #{compose_command} -f docker-compose.prod.yml exec web bash"
-      puts 'Opening shell in Compose... Done!'
+      puts "Opening shell in Compose... Done!"
     else
-      puts 'Opening shell cancelled'
+      puts "Opening shell cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 
   task :clean_all do
-    puts 'Cleaning Compose... WARNING: you are running this in production'
+    puts "Cleaning Compose... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Cleaning Compose...'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Cleaning Compose..."
       system "sudo #{compose_command} -f docker-compose.prod.yml down --volumes --remove-orphans"
-      puts 'Cleaning Compose... Done!'
+      puts "Cleaning Compose... Done!"
     else
-      puts 'Cleaning cancelled'
+      puts "Cleaning cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 
   task :clean_containers do
     puts "Cleaning Containers... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Stopping Containers'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Stopping Containers"
       system "sudo #{compose_command} -f docker-compose.prod.yml down"
-      puts 'Stopping Containers... Done!'
-      puts 'Cleaning Containers...'
+      puts "Stopping Containers... Done!"
+      puts "Cleaning Containers..."
       system "sudo #{compose_command} -f docker-compose.prod.yml rm -f"
-      puts 'Cleaning Containers... Done!'
+      puts "Cleaning Containers... Done!"
     else
-      puts 'Cleaning cancelled'
+      puts "Cleaning cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 
   task :clean_images do
     puts "Cleaning Images... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Cleaning Images...'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Cleaning Images..."
       system "sudo #{compose_command} -f docker-compose.prod.yml rmi -f"
-      puts 'Cleaning Images... Done!'
+      puts "Cleaning Images... Done!"
     else
-      puts 'Cleaning cancelled'
+      puts "Cleaning cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
-  
+
   task :clean_volumes do
     puts "Cleaning Volumes... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Cleaning Volumes...'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Cleaning Volumes..."
       system "sudo #{compose_command} -f docker-compose.prod.yml down --volumes"
-      puts 'Cleaning Volumes... Done!'
+      puts "Cleaning Volumes... Done!"
     else
-      puts 'Cleaning cancelled'
+      puts "Cleaning cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 
   task :clean_orphans do
     puts "Cleaning Orphans... WARNING: you are running this in production"
     # ask in terminal if you want to continue
-    choice = ask('Are you sure you want to continue? (y/n)')
-    if choice == 'y'
-      puts 'Cleaning Orphans...'
+    choice = ask("Are you sure you want to continue? (y/n)")
+    if choice == "y"
+      puts "Cleaning Orphans..."
       system "sudo #{compose_command} -f docker-compose.prod.yml down --remove-orphans"
-      puts 'Cleaning Orphans... Done!'
+      puts "Cleaning Orphans... Done!"
     else
-      puts 'Cleaning cancelled'
+      puts "Cleaning cancelled"
     end
-    puts '-----------------------------------------------------------------------------------'
+    puts "-----------------------------------------------------------------------------------"
   end
 end
 
@@ -235,7 +236,7 @@ def compose_checker
 end
 
 def dockerfile_checker
-  !File.exist?('Dockerfile')
+  !File.exist?("Dockerfile")
 end
 
 tasks_names.each do |task|
@@ -245,5 +246,3 @@ tasks_names.each do |task|
     compose_checker ? (abort "Compose file not found.\nFor development, you must have a #{compose_file} file.") : nil
   end
 end
-    
-

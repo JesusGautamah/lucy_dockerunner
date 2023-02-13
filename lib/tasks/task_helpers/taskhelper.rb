@@ -9,15 +9,16 @@ module TaskHelpers
     end
 
     private
-      def dev_error(e)
-        if env_acceptable?
-          puts "#{e.class}: #{e.message}"
-          puts e.backtrace
-        end
-      end
 
-      def env_acceptable?
-        Rails.env.development? || Rails.env.test?
-      end
+    def dev_error(e)
+      return unless env_acceptable?
+
+      puts "#{e.class}: #{e.message}"
+      puts e.backtrace
+    end
+
+    def env_acceptable?
+      Rails.env.development? || Rails.env.test?
+    end
   end
 end

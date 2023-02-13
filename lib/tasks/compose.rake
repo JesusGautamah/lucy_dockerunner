@@ -2,18 +2,19 @@
 
 require "rake"
 require_relative "task_helpers/compose_taskhelper"
-require "rake/hooks"
+require_relative "../rake/hooks"
 
 def tasks_names
-  @tasks_names = %w[install build up down restart clean_all clean_volumes clean_orphans clean_images clean_networks clean_stopped]
+  @tasks_names = %w[install build up down restart clean_all clean_volumes clean_orphans clean_images clean_networks
+                    clean_stopped]
 end
 
 def namesp
-  @namesp = 'compose'
+  @namesp = "compose"
 end
 
 def dev_compose_file
-  @dev_compose_file ||= 'docker-compose.yml'
+  @dev_compose_file ||= "docker-compose.yml"
 end
 
 def task_helper
@@ -181,7 +182,7 @@ def compose_checker
 end
 
 def dockerfile_checker
-  !File.exist?('Dockerfile')
+  !File.exist?("Dockerfile")
 end
 
 tasks_names.each do |task|
