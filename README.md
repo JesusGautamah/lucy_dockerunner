@@ -2,6 +2,12 @@
 
 Lucy Dockerunner is a Ruby gem that provides a simple wrapper around the Docker Compose CLI to make it easier to run Docker Compose commands from Ruby.
 
+[![Gem Version](https://badge.fury.io/rb/lucy_dockerunner.svg)](https://badge.fury.io/rb/lucy_dockerunner)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Ruby Version](https://img.shields.io/badge/Ruby-2.6.0%2B-blue.svg)](https://www.ruby-lang.org/en/)
+
+Ruby version: >= 2.6.0
+
 ## Installation
 
 You can install the gem by executing:
@@ -17,11 +23,17 @@ Or add it to your Gemfile:
 * `rake compose:build` - build docker compose services
 * `rake compose:up` - start the docker compose services
 * `rake compose:down` - stop the docker compose services
+* `rake compose:status` - show the status of the docker compose services
+* `rake compose:shell` - open a shell in the web service
 * `rake compose:db_detach` - detach the database from the docker compose services
 * `rake compose:redis_detach` - detach the redis from the docker compose services
 * `rake compose:back_detach` - detach the backend(redis, sidekiq, db) from the docker compose services
 * `rake compose:restart` - restart the docker compose services
 * `rake compose:clean_all` - clean all docker compose services
+* `rake compose:clean_images` - clean all docker compose images
+* `rake compose:clean_volumes` - clean all docker compose volumes
+* `rake compose:clean_orphans` - clean all docker compose orphans
+* `rake compose:clean_containers` - clean all docker compose containers
 #### Database actions
 * `rake compose_db:migrate` - migrate the database
 * `rake compose_db:reset` - reset the database
@@ -56,21 +68,16 @@ Or add it to your Gemfile:
 * `rake compose_logs:tail_redis` - tail redis logs
 * `rake compose_logs:tail_sidekiq` - tail sidekiq logs
 * `rake compose_logs:tail_all` - tail all logs
-* `rake compose_logs:follow_web` - follow web logs
-* `rake compose_logs:follow_db` - follow db logs
-* `rake compose_logs:follow_redis` - follow redis logs
-* `rake compose_logs:follow_sidekiq` - follow sidekiq logs
-* `rake compose_logs:follow_all` - follow all logs
 
-## Start the blockchain
+## Start the docker compose services
 ````bash
 $ rake compose:up
 ````
-### Access the blockchain web interface
+### Access the web service
 http://localhost
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/lucy_dockerunner. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/lucy_dockerunner/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/JesusGautamah/lucy_dockerunner. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/JesusGautamah/lucy_dockerunner/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -78,4 +85,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the LucyDockerunner project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/lucy_dockerunner/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the LucyDockerunner project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/JesusGautamah/lucy_dockerunner/blob/master/CODE_OF_CONDUCT.md).
