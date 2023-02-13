@@ -2,7 +2,7 @@
 
 require "rake"
 require_relative "task_helpers/compose_taskhelper"
-require_relative "../rake/hooks"
+require_relative "../rake/lucyd_hooks"
 
 def tasks_names
   @tasks_names = %w[install build up down restart clean_all clean_volumes clean_orphans clean_images clean_networks

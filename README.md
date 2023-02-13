@@ -1,6 +1,6 @@
 # LucyDockerunner
 
-Lucy Dockerunner is a Ruby gem that provides a simple wrapper around the Docker Compose CLI to make it easier to run Docker Compose commands from Ruby.
+Lucy Dockerunner is a Ruby gem that provides a simple wrapper around the Docker Compose CLI to make it easier to run Docker Compose commands from Ruby On Rails projects.
 
 [![Gem Version](https://badge.fury.io/rb/lucy_dockerunner.svg)](https://badge.fury.io/rb/lucy_dockerunner)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -89,7 +89,7 @@ http://localhost
 
 
 ## References
-The code code inside the 'lib/rake/hooks.rb' file is based on the code of the [rake-hooks](https://github.com/guillermo/rake-hooks) from Guillermo Iguaran, Joel Moss as described in the [Ruby Toolbox](https://www.ruby-toolbox.com/projects/rake-hooks) page.
+The code code inside the 'lib/rake/lucyd_hooks.rb' file is based on the code of the [rake-hooks](https://github.com/guillermo/rake-hooks) from Guillermo Iguaran, Joel Moss as described in the [Ruby Toolbox](https://www.ruby-toolbox.com/projects/rake-hooks) page.
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/JesusGautamah/lucy_dockerunner. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/JesusGautamah/lucy_dockerunner/blob/master/CODE_OF_CONDUCT.md).

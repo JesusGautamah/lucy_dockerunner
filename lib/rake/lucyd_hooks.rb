@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# Rake::Hooks from https://github.com/guillermo/rake-hooks, authors Guillermo Iguaran, Joel Moss
+# Rake::LucydHooks from https://github.com/guillermo/rake-hooks, authors Guillermo Iguaran, Joel Moss
 module Rake
-  module Hooks
+  module LucydHooks
     def before(*task_names, &new_task)
       task_names.each do |task_name|
         old_task = Rake.application.instance_variable_get("@tasks").delete(task_name.to_s)
@@ -39,5 +39,5 @@ module Rake
   end
 end
 
-Rake::DSL.include Rake::Hooks if defined?(Rake::DSL)
-include Rake::Hooks unless self.class.included_modules.include?(Rake::Hooks)
+Rake::DSL.include Rake::LucydHooks if defined?(Rake::DSL)
+include Rake::LucydHooks unless self.class.included_modules.include?(Rake::LucydHooks)
