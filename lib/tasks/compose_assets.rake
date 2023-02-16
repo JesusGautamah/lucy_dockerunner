@@ -2,7 +2,6 @@
 
 require "rake"
 require_relative "task_helpers/compose_taskhelper"
-require_relative "../rake/lucyd_hooks"
 
 def task_helper
   @task_helper ||= TaskHelpers::ComposeTaskhelper.new

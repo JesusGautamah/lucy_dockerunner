@@ -137,9 +137,6 @@ LucyDockerunner.load_tasks
 ````bash
 $ rake compose:up
 ````
-
-## References
-The code code inside the 'lib/rake/lucyd_hooks.rb' file is based on the code of the [rake-hooks](https://github.com/guillermo/rake-hooks) from Guillermo Iguaran, Joel Moss as described in the [Ruby Toolbox](https://www.ruby-toolbox.com/projects/rake-hooks) page.
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/JesusGautamah/lucy_dockerunner. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/JesusGautamah/lucy_dockerunner/blob/master/CODE_OF_CONDUCT.md).

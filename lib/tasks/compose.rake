@@ -2,11 +2,9 @@
 
 require "rake"
 require_relative "task_helpers/compose_taskhelper"
-require_relative "../rake/lucyd_hooks"
 
 def tasks_names
-  @tasks_names = %w[install build up down restart clean_all clean_volumes clean_orphans clean_images clean_networks
-                    clean_stopped]
+  @tasks_names = %w[install build up down restart clean_all clean_volumes clean_orphans clean_images]
 end
 
 def namesp
@@ -187,10 +185,10 @@ end
 
 tasks_names.each do |task|
   before_action = "#{namesp}:#{task}"
-  bef before_action do
+  Rake::Task[before_action].enhance do
     docker_abort_error = "Dockerfile not found.\nYou must have a Dockerfile file."
-    compose_abort_error = "Compose file not found.\nFor development, you must have a #{dev_compose_file} file."
-    dockerfile_checker ? abort(docker_abort_error) : puts("Dockerfile found.")
-    compose_checker ? abort(compose_abort_error) : puts("Compose file found.")
+    compose_abort_error = "Compose file not found.\nYou must have a docker-compose.prod.yml file."
+    dockerfile_checker ? abort(docker_abort_error) : puts("Dockerfile found")
+    compose_checker ? abort(compose_abort_error) : puts("Compose Production file found")
   end
 end
