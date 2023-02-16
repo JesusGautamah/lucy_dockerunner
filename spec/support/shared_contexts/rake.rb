@@ -5,7 +5,7 @@ shared_context "rake" do
   subject         { Rake.application[task_name] }
 
   # This allows tasks to be invoked more than once.
-  before do
+  bef do
     subject.reenable
   end
 end

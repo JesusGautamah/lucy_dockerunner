@@ -8,7 +8,7 @@ def task_helper
 end
 
 def compose_command
-  @compose_comand ||= task_helper.compose_command
+  @compose_command ||= task_helper.compose_command
 end
 
 namespace :compose_logs do

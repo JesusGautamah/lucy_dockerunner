@@ -5,6 +5,8 @@ require "simplecov"
 require "rake"
 SimpleCov.start do
   add_filter "/spec/"
+  add_filter "/lib/tasks/compose_prod.rake"
+  add_filter "/lib/tasks/compose.rake"
   add_group "Tasks", "lib/tasks"
 end
 

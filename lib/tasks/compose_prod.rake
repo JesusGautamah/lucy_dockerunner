@@ -38,7 +38,8 @@ namespace :compose_prod do
   end
 
   task :install do
-    puts "Installing Blockchain and Database Containers \nWARNING: This will delete all your data, and you are running this in production"
+    puts "Installing Blockchain and Database Containers \n
+    WARNING: This will delete all your data, and you are running this in production"
     # ask in terminal if you want to continue
     choice = ask("Are you sure you want to continue? (y/n)")
     if choice == "y"
@@ -241,8 +242,10 @@ end
 
 tasks_names.each do |task|
   before_action = "#{namesp}:#{task}"
-  before before_action do
-    dockerfile_checker ? abort("Dockerfile not found.\nYou must have a Dockerfile file.") : nil
-    compose_checker ? (abort "Compose file not found.\nFor development, you must have a #{compose_file} file.") : nil
+  bef before_action do
+    docker_abort_error = "Dockerfile not found.\nYou must have a Dockerfile file."
+    compose_abort_error = "Compose file not found.\nYou must have a docker-compose.prod.yml file."
+    dockerfile_checker ? abort(docker_abort_error) : puts("Dockerfile found")
+    compose_checker ? abort(compose_abort_error) : puts("Compose Production file found")
   end
 end

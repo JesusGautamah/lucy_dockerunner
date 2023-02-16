@@ -187,8 +187,10 @@ end
 
 tasks_names.each do |task|
   before_action = "#{namesp}:#{task}"
-  before before_action do
-    dockerfile_checker ? abort("Dockerfile not found.\nYou must have a Dockerfile file.") : nil
-    compose_checker ? (abort "Compose file not found.\nFor development, you must have a #{dev_compose_file} file.") : nil
+  bef before_action do
+    docker_abort_error = "Dockerfile not found.\nYou must have a Dockerfile file."
+    compose_abort_error = "Compose file not found.\nFor development, you must have a #{dev_compose_file} file."
+    dockerfile_checker ? abort(docker_abort_error) : puts("Dockerfile found.")
+    compose_checker ? abort(compose_abort_error) : puts("Compose file found.")
   end
 end

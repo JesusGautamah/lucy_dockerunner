@@ -4,9 +4,10 @@ require "English"
 require_relative "taskhelper"
 
 module TaskHelpers
+  # ComposeTaskhelper
   class ComposeTaskhelper < TaskHelpers::Taskhelper
     def compose_command
-      @compose_comand ||= compose_command_finder
+      @compose_command ||= compose_command_finder
     end
 
     private
@@ -17,9 +18,9 @@ module TaskHelpers
         system "#{command} --version > /dev/null 2>&1"
         return command if $CHILD_STATUS.success?
 
-        command = false unless $CHILD_STATUS.success?
+        command = false
+        raise ComposeError if command == false
       end
-      raise ComposeError unless command == false
     end
   end
 end
