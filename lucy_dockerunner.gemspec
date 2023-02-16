@@ -9,8 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["lima.jesuscc@gmail.com"]
   spec.summary = "This gem is a tool to run docker containers with rake commands, good for CI/CD and Rails projects"
   spec.description = "This gem is a tool to run docker containers with rake commands, good for CI/CD and Rails projects.
-  It's a wrapper for docker-compose commands and original code was developed
-  by me in the project https://github.com/JesusGautamah/outerspace-blockchain"
+  Docs: https://github.com/JesusGautamah/lucy_dockerunner"
   spec.homepage = "https://github.com/JesusGautamah/lucy_dockerunner"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
