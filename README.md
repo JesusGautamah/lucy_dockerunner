@@ -28,6 +28,16 @@ It's important to have .env files separated by environment, for example:
 - .env.production
 
 And remember to add the .env files to the .gitignore file and reference them in the docker-compose.yml and docker-compose.prod.yml files.
+
+## Services
+This gem requires the following services names to be included in the docker-compose.yml and docker-compose.prod.yml files:
+ <!-- db - redis - web - sidekiq -->
+* db
+* redis
+* web
+* sidekiq
+
+##### more services will be added in the future, for example: mailcatcher, elasticsearch, webpack, etc.
 ## Installation
 
 You can install the gem by executing:
