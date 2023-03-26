@@ -231,12 +231,12 @@ namespace :compose_prod do
   end
 end
 
-def compose_checker
-  !File.exist?(compose_file)
+def compose_exist?
+  File.exist?(compose_file)
 end
 
-def dockerfile_checker
-  !File.exist?("Dockerfile")
+def dockerfile_exist?
+  File.exist?("Dockerfile")
 end
 
 tasks_names.each do |task|
@@ -244,8 +244,8 @@ tasks_names.each do |task|
   Rake::Task[before_action].enhance do
     docker_abort_error = "Dockerfile not found.\nYou must have a Dockerfile file."
     compose_abort_error = "Compose file not found.\nYou must have a docker-compose.prod.yml file."
-    dockerfile_checker ? abort(docker_abort_error) : puts("Dockerfile found")
-    compose_checker ? abort(compose_abort_error) : puts("Compose Production file found")
+    abort(docker_abort_error) unless dockerfile_exist?
+    abort(compose_abort_error) unless compose_exist?
   end
 end
 

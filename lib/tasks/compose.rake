@@ -69,6 +69,30 @@ namespace :compose do
     system "sudo #{compose_command}  down"
     puts "Stopping Compose... Done!"
   end
+  
+  task :bot_detach do
+    puts "Running Bot Detached..."
+    system "sudo #{compose_command}  up -d bot"
+    puts "Running Bot Detached... Done!"
+  end
+
+  task :telegram_detach do
+    puts "Running Telegram Detached..."
+    system "sudo #{compose_command}  up -d telegram"
+    puts "Running Telegram Detached... Done!"
+  end
+
+  task :discord_detach do
+    puts "Running Discord Detached..."
+    system "sudo #{compose_command}  up -d discord"
+    puts "Running Discord Detached... Done!"
+  end
+
+  task :nginx_detach do
+    puts "Running Nginx Detached..."
+    system "sudo #{compose_command}  up -d nginx"
+    puts "Running Nginx Detached... Done!"
+  end
 
   task :db_detach do
     puts "Running Database Detached..."
@@ -82,11 +106,11 @@ namespace :compose do
     puts "Running Redis Detached... Done!"
   end
 
-  task :back_detach do
-    puts "Running Backend Detached..."
-    system "sudo #{compose_command}  up -d --remove-orphans db redis sidekiq"
-    puts "Running Backend Detached... Done!"
-  end
+  # task :back_detach do
+  #   puts "Running Backend Detached..."
+  #   system "sudo #{compose_command}  up -d --remove-orphans db redis sidekiq"
+  #   puts "Running Backend Detached... Done!"
+  # end
 
   task :restart do
     puts "Restarting Compose..."
@@ -112,21 +136,7 @@ namespace :compose do
 
   task :clean_all do
     puts "Cleaning Compose..."
-    puts "Stopping Compose..."
-    system "sudo #{compose_command}  down"
-    puts "Stopping Compose... Done!"
-    puts "Removing Containers..."
-    system "sudo #{compose_command}  rm -f"
-    puts "Removing Containers... Done!"
-    puts "Removing Images..."
-    system "sudo #{compose_command}  rmi -f"
-    puts "Removing Images... Done!"
-    puts "Removing Volumes..."
-    system "sudo #{compose_command}  down -v"
-    puts "Removing Volumes... Done!"
-    puts "Removing Orphans..."
-    system "sudo #{compose_command}  down --remove-orphans"
-    puts "Removing Networks... Done!"
+    system "sudo docker system prune"
     puts "Cleaning Compose... Done!"
   end
 
@@ -175,20 +185,20 @@ namespace :compose do
   end
 end
 
-def compose_checker
-  !File.exist?(compose_file)
+def compose_exist?
+  File.exist?(compose_file)
 end
 
-def dockerfile_checker
-  !File.exist?("Dockerfile")
+def dockerfile_exist?
+  File.exist?("Dockerfile")
 end
 
 tasks_names.each do |task|
   before_action = "#{namesp}:#{task}"
   Rake::Task[before_action].enhance do
     docker_abort_error = "Dockerfile not found.\nYou must have a Dockerfile file."
-    compose_abort_error = "Compose file not found.\nYou must have a docker-compose.prod.yml file."
-    dockerfile_checker ? abort(docker_abort_error) : puts("Dockerfile found")
-    compose_checker ? abort(compose_abort_error) : puts("Compose Production file found")
+    compose_abort_error = "Compose file not found.\nYou must have a docker-compose.yml file."
+    abort(docker_abort_error) unless dockerfile_exist?
+    abort(compose_abort_error) unless compose_exist?
   end
 end

@@ -22,6 +22,41 @@ RSpec.describe "compose.rake", type: :task do
     Rake::Task["compose:up"].invoke
   end
 
+  it "calls the bot_detach task" do
+    expect(Rake::Task["compose:bot_detach"]).to receive(:invoke)
+    Rake::Task["compose:bot_detach"].invoke
+  end
+
+  it "calls the telegram_detach task" do
+    expect(Rake::Task["compose:telegram_detach"]).to receive(:invoke)
+    Rake::Task["compose:telegram_detach"].invoke
+  end
+
+  it "calls the discord_detach task" do
+    expect(Rake::Task["compose:discord_detach"]).to receive(:invoke)
+    Rake::Task["compose:discord_detach"].invoke
+  end
+
+  it "calls the nginx_detach task" do
+    expect(Rake::Task["compose:nginx_detach"]).to receive(:invoke)
+    Rake::Task["compose:nginx_detach"].invoke
+  end
+
+  it "calls the db_detach task" do
+    expect(Rake::Task["compose:db_detach"]).to receive(:invoke)
+    Rake::Task["compose:db_detach"].invoke
+  end
+
+  it "calls the redis_detach task" do
+    expect(Rake::Task["compose:redis_detach"]).to receive(:invoke)
+    Rake::Task["compose:redis_detach"].invoke
+  end
+
+  # it "calls the back_detach task" do
+  #   expect(Rake::Task["compose:back_detach"]).to receive(:invoke)
+  #   Rake::Task["compose:back_detach"].invoke
+  # end
+
   it "calls the down task" do
     expect(Rake::Task["compose:down"]).to receive(:invoke)
     Rake::Task["compose:down"].invoke
