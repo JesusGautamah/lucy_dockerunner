@@ -12,6 +12,30 @@ def compose_command
 end
 
 namespace :compose_logs do
+  task :discord do
+    puts "Showing Discord Logs..."
+    system "sudo #{compose_command} logs discord"
+    puts "Showing Discord Logs... Done!"
+  end
+  
+  task :telegram do
+    puts "Showing Telegram Logs..."
+    system "sudo #{compose_command} logs telegram"
+    puts "Showing Telegram Logs... Done!"
+  end
+
+  task :bot do
+    puts "Showing Bot Logs..."
+    system "sudo #{compose_command} logs bot"
+    puts "Showing Bot Logs... Done!"
+  end
+
+  task :nginx do
+    puts "Showing Nginx Logs..."
+    system "sudo #{compose_command} logs nginx"
+    puts "Showing Nginx Logs... Done!"
+  end
+
   task :web do
     puts "Showing Web Logs..."
     system "sudo #{compose_command} logs web"
@@ -40,6 +64,30 @@ namespace :compose_logs do
     puts "Showing All Logs..."
     system "sudo #{compose_command} logs"
     puts "Showing All Logs... Done!"
+  end
+
+  task :tail_discord do
+    puts "Tailing Discord Logs..."
+    system "sudo #{compose_command} logs -f discord"
+    puts "Tailing Discord Logs... Done!"
+  end
+
+  task :tail_telegram do
+    puts "Tailing Telegram Logs..."
+    system "sudo #{compose_command} logs -f telegram"
+    puts "Tailing Telegram Logs... Done!"
+  end
+
+  task :tail_bot do
+    puts "Tailing Bot Logs..."
+    system "sudo #{compose_command} logs -f bot"
+    puts "Tailing Bot Logs... Done!"
+  end
+
+  task :tail_nginx do
+    puts "Tailing Nginx Logs..."
+    system "sudo #{compose_command} logs -f nginx"
+    puts "Tailing Nginx Logs... Done!"
   end
 
   task :tail_web do

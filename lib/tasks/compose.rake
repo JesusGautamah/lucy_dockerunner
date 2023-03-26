@@ -69,6 +69,24 @@ namespace :compose do
     system "sudo #{compose_command}  down"
     puts "Stopping Compose... Done!"
   end
+  
+  task :bot_detach do
+    puts "Running Bot Detached..."
+    system "sudo #{compose_command}  up -d bot"
+    puts "Running Bot Detached... Done!"
+  end
+
+  task :telegram_detach do
+    puts "Running Telegram Detached..."
+    system "sudo #{compose_command}  up -d telegram"
+    puts "Running Telegram Detached... Done!"
+  end
+
+  task :discord_detach do
+    puts "Running Discord Detached..."
+    system "sudo #{compose_command}  up -d discord"
+    puts "Running Discord Detached... Done!"
+  end
 
   task :nginx_detach do
     puts "Running Nginx Detached..."
@@ -88,11 +106,11 @@ namespace :compose do
     puts "Running Redis Detached... Done!"
   end
 
-  task :back_detach do
-    puts "Running Backend Detached..."
-    system "sudo #{compose_command}  up -d --remove-orphans db redis sidekiq"
-    puts "Running Backend Detached... Done!"
-  end
+  # task :back_detach do
+  #   puts "Running Backend Detached..."
+  #   system "sudo #{compose_command}  up -d --remove-orphans db redis sidekiq"
+  #   puts "Running Backend Detached... Done!"
+  # end
 
   task :restart do
     puts "Restarting Compose..."
