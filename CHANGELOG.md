@@ -6,9 +6,10 @@
 
 ## [0.2.0] - 2023-06-18
 
-- Add support to .env file in tests
-- Set default file to docker-compose.yml and add support to LUCY_FILE environment variable
-- Add support to LUCY_SU environment variable to set superuser command
-- Remove support to docker-compose.prod.yml file
+- Adds support to .env file in tests
+- Adds default file to docker-compose.yml and add support to LUCY_FILE environment variable
+- Adds support to LUCY_SU environment variable to set superuser command
+- Removed support to docker-compose.prod.yml file
+- Adds Railtie
 
 
