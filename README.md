@@ -35,16 +35,15 @@ Or add it to your Gemfile:
 If you want to use superuser privileges, you can set the `LUCY_SU` with your superuser command, for example:
 
     $ export LUCY_SU="sudo"
-Or use .env file:
+Or in `.env` `LUCY_SU=sudo`
 
-        LUCY_SU="sudo"
 ### Add the following code to your Rakefile to load the tasks
 ````ruby
 require 'lucy_dockerunner'
+require "dotenv/load"
 
 LucyDockerunner.load_tasks
 ````
-
 ## Docker actions(more services in compose.rake file)
 * `rake compose:install` - build docker compose and migrate the database
 * `rake compose:build` - build docker compose services
