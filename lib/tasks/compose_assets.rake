@@ -14,19 +14,19 @@ end
 namespace :compose_assets do
   task :precompile do
     puts "Precompiling Assets..."
-    system "sudo #{compose_command} run web rake assets:precompile"
+    system "#{compose_command} -f #{compose_file} run web rake assets:precompile"
     puts "Precompiling Assets... Done!"
   end
 
   task :clean do
     puts "Cleaning Assets..."
-    system "sudo #{compose_command} run web rake assets:clean"
+    system "#{compose_command} -f #{compose_file} run web rake assets:clean"
     puts "Cleaning Assets... Done!"
   end
 
   task :clobber do
     puts "Clobbering Assets..."
-    system "sudo #{compose_command} run web rake assets:clobber"
+    system "#{compose_command} -f #{compose_file} run web rake assets:clobber"
     puts "Clobbering Assets... Done!"
   end
 end

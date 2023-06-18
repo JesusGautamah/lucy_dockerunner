@@ -3,6 +3,11 @@
 require "lucy_dockerunner"
 require "simplecov"
 require "rake"
+require "dotenv/load"
+
+# load environment variables
+Dotenv.load
+
 SimpleCov.start do
   add_filter "/spec/"
   add_filter "/lib/tasks/compose_prod.rake"

@@ -1,6 +1,6 @@
 # Lucy Dockerunner
 
-Lucy Dockerunner is a Ruby gem that provides a simple wrapper around the Docker Compose CLI to make it easier to run Docker Compose commands from Ruby On Rails projects.
+Lucy Dockerunner is a Ruby gem that provides a simple wrapper around the Docker Compose CLI to make it easier to run Docker Compose commands from ruby projects.
 
 [![Gem Version](https://badge.fury.io/rb/lucy_dockerunner.svg)](https://badge.fury.io/rb/lucy_dockerunner)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -8,36 +8,19 @@ Lucy Dockerunner is a Ruby gem that provides a simple wrapper around the Docker 
 
 Ruby version: >= 2.6.0
 
-This gem version: 0.1.7
+This gem version: 0.2.0
 
 ## Dependencies
 
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
-* [Ruby On Rails](https://rubyonrails.org/) - or any other Ruby project that uses Docker Compose to run the project with specific services.
 
 ## Files
-This gem uses the following files to run the docker compose services:
-
-- Dockerfile
-- docker-compose.yml - development
-- docker-compose.prod.yml - production
-
-It's important to have .env files separated by environment, for example:
-- .env.development
-- .env.production
-
-And remember to add the .env files to the .gitignore file and reference them in the docker-compose.yml and docker-compose.prod.yml files.
+The default file is set to `docker-compose.yml`, but you can change it setting the `LUCY_FILE` environment variable.
 
 ## Services
-This gem requires the following services names to be included in the docker-compose.yml and docker-compose.prod.yml files:
- <!-- db - redis - web - sidekiq -->
-* db
-* redis
-* web
-* sidekiq
+Check services in `compose.rake` file.
 
-##### more services will be added in the future, for example: mailcatcher, elasticsearch, webpack, etc.
 ## Installation
 
 You can install the gem by executing:
@@ -49,7 +32,12 @@ Or add it to your Gemfile:
     gem 'lucy_dockerunner'
 
 ## Usage
+If you want to use superuser privileges, you can set the `LUCY_SU` with your superuser command, for example:
 
+    $ export LUCY_SU="sudo"
+Or use .env file:
+
+        LUCY_SU="sudo"
 ### Add the following code to your Rakefile to load the tasks
 ````ruby
 require 'lucy_dockerunner'
@@ -57,7 +45,7 @@ require 'lucy_dockerunner'
 LucyDockerunner.load_tasks
 ````
 
-## Docker actions
+## Docker actions(more services in compose.rake file)
 * `rake compose:install` - build docker compose and migrate the database
 * `rake compose:build` - build docker compose services
 * `rake compose:up` - start the docker compose services
@@ -73,24 +61,6 @@ LucyDockerunner.load_tasks
 * `rake compose:clean_volumes` - clean all docker compose volumes
 * `rake compose:clean_orphans` - clean all docker compose orphans
 * `rake compose:clean_containers` - clean all docker compose containers
-
-## Docker Production actions
-
-* `rake compose_prod:install` - build docker compose and migrate the database
-* `rake compose_prod:build` - build docker compose services
-* `rake compose_prod:up` - start the docker compose services
-* `rake compose_prod:down` - stop the docker compose services
-* `rake compose_prod:status` - show the status of the docker compose services
-* `rake compose_prod:shell` - open a shell in the web service
-* `rake compose_prod:db_detach` - detach the database from the docker compose services
-* `rake compose_prod:redis_detach` - detach the redis from the docker compose services
-* `rake compose_prod:back_detach` - detach the backend(redis, sidekiq, db) from the docker compose services
-* `rake compose_prod:restart` - restart the docker compose services
-* `rake compose_prod:clean_all` - clean all docker compose services
-* `rake compose_prod:clean_images` - clean all docker compose images
-* `rake compose_prod:clean_volumes` - clean all docker compose volumes
-* `rake compose_prod:clean_orphans` - clean all docker compose orphans
-* `rake compose_prod:clean_containers` - clean all docker compose containers
 
 ## Database actions
 * `rake compose_db:migrate` - migrate the database
