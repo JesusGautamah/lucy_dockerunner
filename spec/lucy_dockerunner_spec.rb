@@ -5,7 +5,7 @@ RSpec.describe LucyDockerunner do
     expect(LucyDockerunner::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(false)
+  it "loads rake tasks with superuser and verbose flags" do
+    expect(LucyDockerunner.load_tasks).to be_a(Array)
   end
 end

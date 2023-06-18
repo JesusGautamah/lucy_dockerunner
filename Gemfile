@@ -14,4 +14,6 @@ group :test, :development do
   gem "rubocop-rake", "~> 0.5"
   gem "rubocop-rspec", "~> 2.4"
   gem "simplecov", "~> 0.21"
+
+  gem "dotenv", "~> 2.7"
 end
